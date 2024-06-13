@@ -33,7 +33,9 @@ const PasswordGenerator = () => {
 		<div className="relative flex flex-col items-start justify-center min-h-screen bg-[#e4e4e6] pl-16">
 			<h1 className="text-5xl font-extrabold text-[#2b2a2a] mb-8">Password Generator</h1>
 			<div className="flex items-center w-96 bg-[#f7f7f7] p-4 rounded-lg shadow-lg relative z-10">
-				<span className="text-lg text-[#2b2a2a] mr-4 truncate">{password}</span>
+				<span className="text-lg text-[#2b2a2a] text-gray-500 opacity-75 mr-4 truncate">
+					{password}
+				</span>
 				{/* Copy button using react-copy-to-clipboard */}
 				<CopyToClipboard text={password} onCopy={handleCopy}>
 					<button className="ml-auto text-[#56e094] hover:text-green-500 transition">
