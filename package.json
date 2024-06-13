@@ -1,0 +1,34 @@
+{
+	"name": "password-generator",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+	  "dev": "next dev",
+	  "build": "next build",
+	  "start": "next start",
+	  "lint": "next lint",
+	  "format": "prettier --write \"src/**/*.{ts,tsx}\""
+	},
+	"dependencies": {
+	  "next": "14.2.3",
+	  "react": "^18",
+	  "react-copy-to-clipboard": "^5.1.0",
+	  "react-dom": "^18"
+	},
+	"devDependencies": {
+	  "@types/node": "^20",
+	  "@types/react": "^18",
+	  "@types/react-copy-to-clipboard": "^5.0.7",
+	  "@types/react-dom": "^18",
+	  "@typescript-eslint/eslint-plugin": "^7.13.0",
+	  "autoprefixer": "^10.4.19",
+	  "eslint": "^8.57.0",
+	  "eslint-config-next": "14.2.3",
+	  "eslint-config-prettier": "^9.1.0",
+	  "eslint-plugin-prettier": "^5.1.3",
+	  "prettier": "3.3.2",
+	  "tailwindcss": "^3.4.4",
+	  "typescript": "^5"
+	}
+  }
+  
