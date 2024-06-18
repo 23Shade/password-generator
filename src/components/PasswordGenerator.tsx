@@ -1,17 +1,18 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 
 const PasswordGenerator = () => {
 	const [password, setPassword] = useState('Password')
 	const [copied, setCopied] = useState(false)
+	const [passwordLength, setPasswordLength] = useState(12)
 
 	// Function to generate a random password
-	const generatePassword = () => {
+	const generatePassword = (length: number) => {
 		const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 		let newPassword = ''
-		for (let i = 0; i < 12; i++) {
+		for (let i = 0; i < length; i++) {
 			newPassword += chars.charAt(Math.floor(Math.random() * chars.length))
 		}
 		// Update password state with the generated password
@@ -19,6 +20,11 @@ const PasswordGenerator = () => {
 		// Reset copied state when generating a new password
 		setCopied(false)
 	}
+
+	// Generate a password whenever the passwordLength changes
+	useEffect(() => {
+		generatePassword(passwordLength)
+	}, [passwordLength])
 
 	// Function to handle copying the password to clipboard
 	const handleCopy = () => {
@@ -28,7 +34,26 @@ const PasswordGenerator = () => {
 		setTimeout(() => setCopied(false), 2000)
 	}
 
-	// Render the PasswordGenerator component JSX
+	// Function to handle range slider input
+	const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		let value = Number(e.target.value)
+		// Ensure the value does not exceed 50
+		value = value > 50 ? 50 : value
+		setPasswordLength(value)
+		document.documentElement.style.setProperty(
+			'--value',
+			(((value - 1) * 100) / (50 - 1)).toString()
+		)
+	}
+
+	// Ensure the initial value of --value matches the initial state of the slider
+	useEffect(() => {
+		document.documentElement.style.setProperty(
+			'--value',
+			(((passwordLength - 1) * 100) / (50 - 1)).toString()
+		)
+	}, [passwordLength])
+
 	return (
 		<div className="relative flex flex-col items-start justify-center min-h-screen bg-[#e4e4e6] pl-16">
 			<h1 className="text-5xl font-extrabold text-[#2b2a2a] mb-8">Password Generator</h1>
@@ -36,7 +61,6 @@ const PasswordGenerator = () => {
 				<span className="text-lg text-[#2b2a2a] text-gray-500 opacity-75 mr-4 truncate">
 					{password}
 				</span>
-				{/* Copy button using react-copy-to-clipboard */}
 				<CopyToClipboard text={password} onCopy={handleCopy}>
 					<button className="ml-auto text-[#56e094] hover:text-green-500 transition">
 						<svg
@@ -55,17 +79,44 @@ const PasswordGenerator = () => {
 						</svg>
 					</button>
 				</CopyToClipboard>
-				{/* Display "Copied!" message when password is copied */}
 				{copied && <span className="text-sm text-[#56e094] ml-2">Copied!</span>}
 			</div>
-			{/* Button to generate a new password */}
+
+			{/* Password Length Controls */}
+			<div className="flex items-center mt-4 w-96 bg-[#f7f7f7] p-4 rounded-lg shadow-lg">
+				<label htmlFor="password-length" className="mr-4 text-lg text-[#2b2a2a]">
+					Length:
+				</label>
+				<input
+					type="range"
+					id="password-length"
+					min="1"
+					max="50"
+					value={passwordLength}
+					onChange={handleRangeChange}
+					className="w-1/2 mr-4 range-slider"
+				/>
+				<input
+					type="number"
+					min="1"
+					max="50"
+					value={passwordLength}
+					onChange={(e) => {
+						// Ensure the value does not exceed 50
+						const value = Number(e.target.value)
+						setPasswordLength(value > 50 ? 50 : value)
+					}}
+					className="w-16 p-1 border border-gray-300 rounded-md text-center"
+				/>
+			</div>
+
 			<button
 				className="mt-6 px-6 py-3 bg-[#56e094] text-white font-semibold rounded-lg shadow-md hover:bg-green-500 transition-transform transform hover:scale-105 z-10"
-				onClick={generatePassword}
+				onClick={() => generatePassword(passwordLength)}
 			>
 				Generate Password
 			</button>
-			{/* Image component (hidden on small screens) */}
+
 			<div className="absolute right-0 top-0 bottom-0 hidden md:block z-0">
 				<img src="/res/hand.png" alt="Hand holding asterisk" className="object-contain h-full" />
 			</div>
