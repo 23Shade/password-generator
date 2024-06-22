@@ -56,7 +56,13 @@ const PasswordGenerator = () => {
 
 	return (
 		<div className="relative flex flex-col items-start justify-center min-h-screen bg-[#e4e4e6] pl-16">
-			<h1 className="text-5xl font-extrabold text-[#2b2a2a] mb-8">Password Generator</h1>
+			<div className="absolute inset-0 z-0 grid-background" />
+			<div className="absolute right-0 top-0 bottom-0 hidden md:block z-0">
+				<img src="/res/hand.png" alt="Hand holding asterisk" className="object-contain h-full" />
+			</div>
+			<h1 className="text-5xl font-extrabold text-[#2b2a2a] mb-8 relative z-10">
+				Password Generator
+			</h1>
 			<div className="flex items-center w-96 bg-[#f7f7f7] p-4 rounded-lg shadow-lg relative z-10">
 				<span className="text-lg text-[#2b2a2a] text-gray-500 opacity-75 mr-4 truncate">
 					{password}
@@ -83,7 +89,7 @@ const PasswordGenerator = () => {
 			</div>
 
 			{/* Password Length Controls */}
-			<div className="flex items-center mt-4 w-96 bg-[#f7f7f7] p-4 rounded-lg shadow-lg">
+			<div className="flex items-center mt-4 w-96 bg-[#f7f7f7] p-4 rounded-lg shadow-lg relative z-10">
 				<label htmlFor="password-length" className="mr-4 text-lg text-[#2b2a2a]">
 					Length:
 				</label>
@@ -111,15 +117,11 @@ const PasswordGenerator = () => {
 			</div>
 
 			<button
-				className="mt-6 px-6 py-3 bg-[#56e094] text-white font-semibold rounded-lg shadow-md hover:bg-green-500 transition-transform transform hover:scale-105 z-10"
+				className="mt-6 px-6 py-3 bg-[#56e094] text-white font-semibold rounded-lg shadow-md hover:bg-green-500 transition-transform transform hover:scale-105 relative z-10"
 				onClick={() => generatePassword(passwordLength)}
 			>
 				Generate Password
 			</button>
-
-			<div className="absolute right-0 top-0 bottom-0 hidden md:block z-0">
-				<img src="/res/hand.png" alt="Hand holding asterisk" className="object-contain h-full" />
-			</div>
 		</div>
 	)
 }
