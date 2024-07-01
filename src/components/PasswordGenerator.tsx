@@ -55,7 +55,7 @@ const PasswordGenerator = () => {
 	}, [passwordLength])
 
 	return (
-		<div className="relative flex flex-col items-start justify-center min-h-screen bg-[#e4e4e6] pl-16">
+		<div className="relative flex flex-col items-start justify-center min-h-screen bg-[#e4e4e6] pl-64">
 			<div className="absolute inset-0 z-0 grid-background" />
 			<div className="absolute right-0 top-0 bottom-0 hidden md:block z-0">
 				<img src="/res/hand.png" alt="Hand holding asterisk" className="object-contain h-full" />
